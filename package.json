@@ -1,0 +1,24 @@
+{
+  "name": "TQC-DiscordBot",
+  "version": "1.0.0",
+  "description": "A discord bot. Written in JavaScript, by discord.js which is a powerful node.js module that allows to interact with the Discord API very easily.",
+  "main": "program.js",
+  "dependencies": {
+    "discord.js": "^12.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iZeQure/TQC-DiscordBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iZeQure/TQC-DiscordBot/issues"
+  },
+  "homepage": "https://github.com/iZeQure/TQC-DiscordBot#readme"
+}
