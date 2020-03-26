@@ -1,12 +1,12 @@
-// require the dependency discord.js module
+// Get depedency modules.
 const Discord = require('discord.js');
-
-// get the required configuration file.
 const {
-    BotConfig
+    BotConfig,
+    Channels,
+    Colors
 } = require('./config.json');
 
-// create a new Discord Client
+// Initialize Objects
 const client = new Discord.Client();
 
 // when the client is ready, run this event,
@@ -15,19 +15,33 @@ client.once('ready', () => {
     console.info(`${client.user.tag} is ready!`);
 });
 
-// Login to Discord with the app's token.
-client.login(BotConfig.token);
-
-// Debug for any messages,
-// log the result in the log.
+// Listen to message event,
+// triggered everytime a message is send.
 client.on('message', message => {
-    if (message.content.startsWith(`${BotConfig.prefix}ping`)) {
-        message.channel.send('Pong!');
-    } 
-    else if (message.content.startsWith(`${BotConfig.prefix}beep`)) {
-        message.channel.send('Boop!');
-    } 
-    else if (message.content === `${BotConfig.prefix}server`) {
-        message.channel.send(`Server Name : ${message.guild.name}\nTotal Members : ${message.guild.memberCount}`);
+
+    // Exit event, if isn't correct channel.
+    if (!message.channel.id === Channels.Debugging.id) return;
+
+    // Get information of who created the news post.
+    const newsCreatedBy = `${message.author.tag} <${message.author.id}>`;
+
+    // Get a readable date time now.
+    const dateTime = new Date(Date.now());
+
+    // Write info to the console for debugging.
+    console.info(`News Created By: ${newsCreatedBy}. @ ${dateTime.toDateString()}`);
+    console.log(`Message Content : ${message.content}`);
+
+    // Check if any attachments are provided in the message.
+    if (message.attachments.size > 0) {
+
+        // Get the url of the provided attachment.
+        const attachments = message.attachments;
+        attachments.forEach(attachment => {
+            console.info(attachment.url);
+        });
     }
 });
+
+// Login to Discord with the app's token.
+client.login(BotConfig.token);
