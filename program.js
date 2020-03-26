@@ -17,29 +17,36 @@ client.once('ready', () => {
 
 // Listen to message event,
 // triggered everytime a message is send.
-client.on('message', message => {
+client.on('message', async message => {
 
-    // Exit event, if isn't correct channel.
-    if (!message.channel.id === Channels.Debugging.id) return;
+    try {
+        // Exit event, if isn't correct channel.
+        if (!message.channel.id === Channels.Debugging.id) return;
 
-    // Get information of who created the news post.
-    const newsCreatedBy = `${message.author.tag} <${message.author.id}>`;
+        // Get information of who created the news post.
+        const newsCreatedBy = `${message.author.tag} <${message.author.id}>`;
 
-    // Get a readable date time now.
-    const dateTime = new Date(Date.now());
+        // Get a readable date time now.
+        const dateTime = new Date(Date.now());
 
-    // Write info to the console for debugging.
-    console.info(`News Created By: ${newsCreatedBy}. @ ${dateTime.toDateString()}`);
-    console.log(`Message Content : ${message.content}`);
+        // Write info to the console for debugging.
+        console.info(`News Created By: ${newsCreatedBy}. @ ${dateTime.toDateString()}`);
+        console.log(`Message Content : ${message.content}`);
 
-    // Check if any attachments are provided in the message.
-    if (message.attachments.size > 0) {
+        // Check if any attachments are provided in the message.
+        if (message.attachments.size > 0) {
 
-        // Get the url of the provided attachment.
-        const attachments = message.attachments;
-        attachments.forEach(attachment => {
-            console.info(attachment.url);
-        });
+            // Get the url of the provided attachment.
+            const attachments = message.attachments;
+            attachments.forEach(attachment => {
+                console.info(attachment.url);
+            });
+        }
+    } catch (error) {
+        console.error(`Error Ocurred Reading News : ${error.message}`);
+    }
+    finally {
+        
     }
 });
 
